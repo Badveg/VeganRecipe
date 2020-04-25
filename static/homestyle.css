@@ -139,13 +139,18 @@ body {
     border-style: solid;
     border-width: 1px;
     border-radius: 20px;
-    border-color: yellowgreen;
-    background-color: yellowgreen;
+    border-color: tomato;
+    background-color: transparent;
     font-size: 14px;
-    color: white;
+    color: black;
     margin: 5px 5px;
     padding: 10px;
     font-family: 'Noto Sans KR', sans-serif;
+}
+
+.submenus:hover {
+    background-color: tomato;
+    color: white;
 }
 
 .cates {

@@ -15,12 +15,14 @@ def home():
 
 @app.route('/recipe', methods=['GET', 'POST'])
 def add_menu():
-    main = str(request.args.get('main_give').replace(',', '+'))
+    main = str(request.args.get('main_give'))
+    print(main)
     # ',' -> '+'
 
     headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
     url = 'https://search.naver.com/search.naver?sm=tab_hty.top&where=post&query='+ '비건' + '+' + main + '+' + '레시피'
+    print(url)
     response = requests.get(url, headers=headers)
     soup = BeautifulSoup(response.text, 'html.parser')
 
