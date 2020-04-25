@@ -1,0 +1,186 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 50px 100px;
+    max-width: 1280px;
+}
+
+@media screen and (max-width: 768px) {
+    .wrap {
+        margin: 30px 20px;
+    }   
+}
+
+#cateTab_0 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 0 100px;
+}
+
+@media screen and (max-width: 768px) {
+    #cateTab_0 {
+        align-items: center;
+        padding: 0 20px;
+    }   
+}
+
+#cateTab_1 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 0 100px;
+}
+
+@media screen and (max-width: 768px) {
+    #cateTab_1 {
+        padding: 0 20px;
+    }   
+}
+
+#catebtn_0 {
+    border: solid;
+    border-width: 0;
+    font-size: 24px;
+    background-color: transparent;
+    padding: 10px 15px;
+    font-family: 'Black Han Sans', sans-serif;
+}
+
+#catebtn_0:hover {
+    color: rgb(20, 202, 35);
+}
+
+#catebtn_1 {
+    border: solid;
+    border-width: 0;
+    font-size: 24px;
+    background-color: transparent;
+    padding: 10px 15px;
+    font-family: 'Black Han Sans', sans-serif;
+}
+
+#catebtn_1:hover {
+    color: tomato;
+}
+
+.title {
+    color: black;
+    font-size: 40px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 400;
+}
+
+.catebtn {
+    margin-bottom: 10px;
+    border-width: 0;
+    color: black;
+    font-size: 20px;
+    background-color: transparent;
+    font-family: 'Do Hyeon', sans-serif;
+}
+
+.menus {
+    text-align: center;
+    width: 100px;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 20px;
+    border-color: yellowgreen;
+    background-color: transparent;
+    font-size: 14px;
+    color: black;
+    margin: 5px 5px;
+    padding: 10px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.menus:hover {
+    background-color: yellowgreen;
+    color: white;
+}
+
+@media screen and (max-width: 768px) {
+    .menus {
+        font-size: 14px;
+        width: 90px;
+    }   
+}
+
+.menus_1 {
+    text-align: center;
+    width: 100px;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 20px;
+    border-color: yellowgreen;
+    background-color: yellowgreen;
+    font-size: 14px;
+    color: white;
+    margin: 5px 5px;
+    padding: 10px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.submenus {
+    text-align: center;
+    width: 100px;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 20px;
+    border-color: yellowgreen;
+    background-color: yellowgreen;
+    font-size: 14px;
+    color: white;
+    margin: 5px 5px;
+    padding: 10px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.cates {
+    margin-bottom: 20px;
+}
+
+.menus >img {
+    width: 80px;
+}
+
+#search {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+#recipe {
+    width: 100%;
+    max-width: 1280px;
+    font-family: 'Noto Sans KR', sans-serif;
+    display: flex;
+    align-items:flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.makeList {
+    width: 200px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: cadetblue;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px;
+}
+
+.link {
+    font-size: 14px;
+    color: cadetblue;
+}

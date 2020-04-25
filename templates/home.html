@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Web title -->
+    <title>비건 레시피 찾기</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='homestyle.css') }}">
+
+    <!-- Google fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500&family=Black+Han+Sans&family=Do+Hyeon&display=swap" rel="stylesheet">
+
+    <script>
+        let menu= document.getElementsByClassName("menus").val
+
+        function initBeans () { // 콩/두부/묵 항목 초기화
+            let beans = [
+                "건두부",
+                "두부",
+                "두부봉",
+                "두유",
+                "도토리묵",
+                "면두부",
+                "병아리콩",
+                "유부",
+                "청포묵",
+                "팥",
+                "템페"
+            ];
+
+            beans = beans.sort();   // 가, 나, 다 순으로 정렬
+            beans = beans.map(bean => {  // <button></button> 스트링을 반환
+                return  `<button class= "menus" value= "${bean}" onclick="makeRecipe(this)">${bean}</button>`
+            })
+
+            beans.forEach(function(beanBtn) {  // 반환된 html element 스트링을, beans div에 append
+                $("#beans").append(beanBtn);
+            });
+        }
+
+        function initFresh () { // 콩/두부/묵 항목 초기화
+            let freshs = [
+                "가지",
+                "감자",
+                "고구마",
+                "공심채",
+                "그린빈",
+                "깻잎",
+                "꽈리고추",
+                "노각오이",
+                "느타리버섯",
+                "늙은호박",
+                "단호박",
+                "달래",
+                "당근",
+                "대파",
+                "두릅",
+                "루꼴라",
+                "마",
+                "마늘",
+                "무",
+                "미나리",
+                "미니 양배추",
+                "배추",
+                "부추",
+                "브로콜리",
+                "비트",
+                "새송이버섯",
+                "새싹채소",
+                "샐러리",
+                "숙주",
+                "시금치",
+                "쑥",
+                "쑥갓",
+                "아보카도",
+                "아스파라거스",
+                "아욱",
+                "알감자",
+                "애호박",
+                "야콘",
+                "양배추",
+                "양상추",
+                "양송이버섯",
+                "양파",
+                "연근",
+                "오이",
+                "오이맛고추",
+                "옥수수",
+                "우엉",
+                "쥬키니호박",
+                "쪽파",
+                "청경채",
+                "청양고추",
+                "컬리플라워",
+                "콜라비",
+                "콩나물",
+                "파프리카",
+                "팽이버섯",
+                "표고버섯",
+                "피망"
+            ]
+            .sort() // 가, 나, 다 순으로 정렬
+            .map(fresh => {  // <button></button> 스트링을 반환
+                return  `<button class= "menus" value= "${fresh}" onclick="makeRecipe(this)">${fresh}</button>`
+            })
+
+            freshs.forEach(freshBtn => {  // 반환된 html element 스트링을, beans div에 append
+                $("#freshs").append(freshBtn);
+            });
+        }
+
+        function initDried () { // 콩/두부/묵 항목 초기화
+            let drieds = [
+                "고구마 줄기",
+                "고사리",
+                "냉이",
+                "돌나물",
+                "명이나물",
+                "무말랭이",
+                "취나물",
+                "미역",
+                "방풍나물",
+                "시래기",
+                "톳",
+                "파래" 
+            ]
+            .sort() // 가, 나, 다 순으로 정렬
+            .map(dried => {  // <button></button> 스트링을 반환
+                return  `<button class= "menus" value= "${dried}" onclick="makeRecipe(this)">${dried}</button>`
+            })
+
+            drieds.forEach(driedBtn => {  // 반환된 html element 스트링을, beans div에 append
+                $("#dried").append(driedBtn);
+            });
+        }
+
+        function init () {  // body 가 로드되고나서 호출되는 초기화 함수
+            initBeans();
+            initFresh();
+            initDried();
+        }
+
+        
+
+
+
+        function openTab(val) {
+
+            for(i= 0; i< 2; i++) {
+                tab = document.getElementById("cateTab_"+ i);
+                btn = document.getElementById("catebtn_"+ i);
+
+                if(i != val) {
+                    tab.style.display = 'none';
+                    btn.style.color = 'black';
+                } else {
+                    tab.style.display = 'flex';
+                    if (i === 0) {
+                        btn.style.color = 'rgb(20, 202, 35)';
+                    } else if (i === 1) {
+                        btn.style.color = 'tomato';
+                    }
+                }
+            }
+        }
+
+
+
+        function makeRecipe(elem) {
+
+            let menuTag= '<button class="menus_1" value =' 
+                        + '"' 
+                        + elem.value
+                        + '"'
+                        + 'onclick="remove(this); move(this);">'+ elem.value +'</button>';
+
+                $('#search').append(menuTag);
+                elem.style.display = "none";
+        }
+
+        function remove(elem) {
+
+            $(elem).remove('.menus_1');
+        }
+
+        function move(elem) {
+
+            menus = document.getElementsByClassName("menus");
+
+            for(i=0; i<menus.length; i++) {
+
+                menusNumber = menus[i].value;
+
+                if (elem.value === menusNumber) {
+                    $(menus[i]).show();
+                }
+            }
+        }
+
+        function postMenu() {
+            // let menus_1 = document.getElementsByClassName("menus_1");
+            // for(i=0; i<menus_1.length; i++) {
+            //     main = menus_1[i].value
+
+            //     $.ajax({
+            //     type: "POST",
+            //     url: "/give",
+            //     data: { 'main_give' : main },
+            //     success: function (data) { 
+            //         alert(data);
+            //      }
+            //     })
+            // }
+        }
+
+        function searchRecipe() {
+                let menus_1 = document.getElementsByClassName("menus_1");
+                    for(i=0; i<menus_1.length; i++) {
+                        main_give = menus_1[i].value
+
+                $.ajax({
+                    type: "GET",
+                    url: "/recipe",
+                    data: {main_give},
+                    success: function (data) {
+                        for(i=0; i<data.length; i++) {
+                        titles = (data[i].title);
+                        images = (data[i].image);
+                        urls = (data[i].url);
+
+                        make_card( titles, images, urls);
+                        console.log(data[i])
+                        }
+                    }
+                });
+            }
+        }
+
+        function make_card(titles, images, urls) {
+            let card = '<div class = "makeList">' + '<h4>' + titles + '</h4>' + '<img src ="' + images + '"/ width = 150px>' + '<p>' + '<a class = link href = "' + urls + '">' + '레시피 보러가기' +'</a>' + "</div>"
+            $('#recipe').append(card);
+        }
+
+    </script>
+
+
+</head>
+
+
+<body onload="init()">
+<div class= "wrap">
+    <div class= "title">비건 레시피 모아봐요!</div>
+
+    <p>
+
+    <button id="catebtn_0" onclick='openTab(0)' style="color: rgb(20, 202, 35);">주재료</button>
+    <button id="catebtn_1" onclick="openTab(1)">조미료</button>
+
+
+    <div id= "cateTab_0">
+
+        <div class= "cates">
+            <button class= "catebtn">콩/ 두부/ 묵</button>
+                <div class="cate-menu" id="beans"></div>
+        </div>
+
+        <div class= "cates">
+            <button class= "catebtn">신선야채</button>
+                <div class="cate-menu" id="freshs"></div>
+        </div>
+
+        <div clas= "cates">
+            <button class= "catebtn">건조야채/ 나물</button>
+                <div class="cate-menu" id = "dried"></div>
+        </div>
+
+    </div>
+        
+
+        <div id= "cateTab_1" style="display: none;">
+
+        <div class= "cates">
+            <button class= "catebtn">가루류</button>
+        
+            <div class="cate-menu">
+                <button class = "submenus">콩가루</button>
+                <button class = "submenus">밀가루</button>
+                <button class = "submenus">쌀가루</button>
+                <button class = "submenus">계피가루</button>
+                <button class = "submenus">쑥가루</button>
+            </div>
+        </div>
+
+        <div class= "cates">
+            <button class= "catebtn">두유/ 크림류</button>
+        
+            <div class="catebtn">
+                <button class = "submenus">두유</button>
+                <button class = "submenus">코코넛 밀크</button>
+                <button class = "submenus">아몬드 밀크</button>
+                <button class = "submenus">라이스 밀크</button>
+                <button class = "submenus">코코넛 크림</button>
+                <button class = "submenus">아몬드 크림</button>
+            </div>
+        </div>
+
+        </div>
+
+            <p>
+
+    <div id= "search">
+    </div>
+    <button id= "searchbtn" onclick="postMenu(); searchRecipe();">레시피 획득!</button>
+
+    <p>
+    <div>레시피 검색 결과</div>
+    <p>
+
+    <div id= "recipe">
+    </div>
+</div>
+</body>
+</html>
